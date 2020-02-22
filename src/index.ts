@@ -1,5 +1,12 @@
 import faker from 'faker';
-import { prisma, TweetPromise } from '../generated/prisma-client';
+import {
+  prisma,
+  TweetPromise,
+  Tweet,
+  FragmentableArray,
+  User,
+  UserPromise
+} from '../generated/prisma-client';
 
 const fName = faker.name.findName();
 const fZip = faker.address.zipCode();
@@ -10,15 +17,23 @@ console.log(`faker zip: ${fZip}`);
 
 // async awiat test:
 const createTweetforUser = async (authorId: string | number) => {
-  const creTweetsById = await creTweetById(authorId);
-  const targetUserwithTweets = await tweetsById(authorId);
+  const creTweetsById = await createTweetByUserId(authorId);
+  const targetUserwithTweets = await queryTweetByUserId(authorId);
+  const targetUid = await targetUserById(authorId);
   console.log(
-    `target tweets by user id ${authorId} : ${JSON.stringify(targetUserwithTweets, undefined, 2)}`
+    `target tweets by user id ${authorId} : ${JSON.stringify(
+      targetUserwithTweets,
+      undefined,
+      2
+    )}`
+  );
+  console.log(
+    `target user id ${authorId} : ${JSON.stringify(targetUid, undefined, 2)}`
   );
   return targetUserwithTweets;
 };
 
-const creTweetById = (uID: string | number): TweetPromise => {
+const createTweetByUserId = (uID: string | number): TweetPromise => {
   return prisma.createTweet({
     title: fTitle,
     text: fText,
@@ -27,10 +42,14 @@ const creTweetById = (uID: string | number): TweetPromise => {
   });
 };
 
-const tweetsById = (uID: string | number) => {
-  const targetTest = prisma.tweets({ where: { owner: { id: uID } } });
+const queryTweetByUserId = (uID: string | number): TweetPromise => {
+  // const targetTest = prisma.tweets({ where: { owner: { id: uID } } });
+  // return targetTest;
+  return prisma.user({ id: uID }).tweets();
+};
 
-  return targetTest;
+const targetUserById = (uID: string | number) => {
+  return prisma.users({ where: { id: uID } });
 };
 
 createTweetforUser('ck6vs1ch101z40891nhu9iflj');

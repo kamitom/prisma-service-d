@@ -1,9 +1,11 @@
 {
   "scripts": {
     "test": "ts-node src/index.ts",
+    "test2": "ts-node src/prisma.ts",
     "start:build": "tsc -w",
     "start:run": "nodemon build/index.js",
-    "start": "concurrently npm:start:*"
+    "start": "concurrently npm:start:*",
+    "get-schema": "graphql get-schema -p prisma-test"
   },
   "dependencies": {
     "@types/faker": "^4.1.9",
@@ -11,6 +13,8 @@
     "concurrently": "^5.1.0",
     "faker": "^4.1.0",
     "nodemon": "^2.0.2",
-    "prisma-client-lib": "^1.34.10"
+    "prisma-binding": "^2.3.16",
+    "prisma-client-lib": "^1.34.10",
+    "typescript": "^3.8.2"
   }
 }
