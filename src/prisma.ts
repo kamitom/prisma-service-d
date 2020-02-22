@@ -21,36 +21,34 @@ const createTweetforUser = async (authorId: string | number) => {
   return userList;
 };
 
-const createTweetByUserId = (uID: string | number) => {
-  return prisma.mutation
-    .createTweet(
-      {
+const createTweetByUserId = async (uID: string | number) => {
+  try {
+    return prisma.mutation
+      .createTweet({
         data: {
           text: fText,
           title: fTitle,
           published: false,
           owner: { connect: { id: uID } }
         }
-      },
-      '{ id title text owner { id name } }'
-    )
-    .catch(error => {
-      console.log(`ceate twitter error: ${error}`);
-    });
+      }, '{ id title text owner { id name } }');
+  }
+  catch (error) {
+    console.log(`ceate twitter error: ${error}`);
+  }
 };
 
-const userWithTweetsList = (uID: string | number) => {
-  return prisma.query
-    .user(
-      { where: { id: uID } },
-      '{ id email name tweets { title, text, published, createdAt } } '
-    )
-    .catch(error => {
-      console.log(`query error: ${error}`);
-    });
+const userWithTweetsList = async (uID: string | number) => {
+  try {
+    return prisma.query
+      .user({ where: { id: uID } }, '{ id email name tweets { title, text, published, createdAt } } ');
+  }
+  catch (error) {
+    console.log(`query error: ${error}`);
+  }
 };
 
-createTweetforUser('100').then(data => {
+createTweetforUser('ck6xcmy580ab70891z7o8iwq9').then(data => {
   console.log(
     `a specific user with new twitter list: ${JSON.stringify(
       data,
