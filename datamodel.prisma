@@ -12,6 +12,7 @@ type User {
 type Tweet {
   id: ID! @id
   createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   title: String!
   text: String!
   published: Boolean!

@@ -1,5 +1,5 @@
 # source: http://localhost:4468
-# timestamp: Sat Feb 22 2020 16:36:49 GMT+0800 (GMT+08:00)
+# timestamp: Sat Feb 22 2020 19:55:28 GMT+0800 (GMT+08:00)
 
 type AggregateComment {
   count: Int!
@@ -485,6 +485,7 @@ type Subscription {
 type Tweet implements Node {
   id: ID!
   createdAt: DateTime!
+  updatedAt: DateTime!
   title: String!
   text: String!
   published: Boolean!
@@ -555,6 +556,8 @@ enum TweetOrderByInput {
   id_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
   title_ASC
   title_DESC
   text_ASC
@@ -568,6 +571,7 @@ enum TweetOrderByInput {
 type TweetPreviousValues {
   id: ID!
   createdAt: DateTime!
+  updatedAt: DateTime!
   title: String!
   text: String!
   published: Boolean!
@@ -645,6 +649,28 @@ input TweetScalarWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   title: String
 
   """All values that are not equal to given value."""
@@ -958,6 +984,28 @@ input TweetWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   title: String
 
   """All values that are not equal to given value."""

@@ -12,51 +12,84 @@ const prisma = new Prisma({
   endpoint: 'http://localhost:4468'
 });
 
+const updateTweetForUser = async (twitterId: string | number, data: any) => {
+  const post = await prisma.mutation.updateTweet(
+    {
+      where: { id: twitterId },
+      data
+    },
+    '{ owner { id } }'
+  );
+
+  const user = await prisma.query.user(
+    { where: { id: post.owner.id } },
+    '{ id email tweets { id title text published }}'
+  );
+
+  return user;
+};
+
+// update tweet by tweet id: ck6x2s7a007zw08911ve55a91
+updateTweetForUser('ck6vuhe0y03d80891xc7rg5da', { published: true, text: fText })
+  .then(user => {
+    console.log(`user tweets: ${JSON.stringify(user, undefined, 2)}`);
+  })
+  .catch(error => {
+    console.log(`error: ${JSON.stringify(error, undefined, 2)}`);
+  });
+
+// =============== scope 2 =================
+
 // async/await test
 // 1. create twitter with specific user
 // 2. show specific user with tweets list
-const createTweetforUser = async (authorId: string | number) => {
-  const newTwitter = await createTweetByUserId(authorId);
-  const userList = await userWithTweetsList(authorId);
-  return userList;
-};
 
-const createTweetByUserId = async (uID: string | number) => {
-  try {
-    return prisma.mutation
-      .createTweet({
-        data: {
-          text: fText,
-          title: fTitle,
-          published: false,
-          owner: { connect: { id: uID } }
-        }
-      }, '{ id title text owner { id name } }');
-  }
-  catch (error) {
-    console.log(`ceate twitter error: ${error}`);
-  }
-};
+// const createTweetforUser = async (authorId: string | number) => {
+//   const newTwitter = await createTweetByUserId(authorId);
+//   const userList = await userWithTweetsList(authorId);
+//   return userList;
+// };
 
-const userWithTweetsList = async (uID: string | number) => {
-  try {
-    return prisma.query
-      .user({ where: { id: uID } }, '{ id email name tweets { title, text, published, createdAt } } ');
-  }
-  catch (error) {
-    console.log(`query error: ${error}`);
-  }
-};
+// const createTweetByUserId = async (uID: string | number) => {
+//   try {
+//     return prisma.mutation.createTweet(
+//       {
+//         data: {
+//           text: fText,
+//           title: fTitle,
+//           published: false,
+//           owner: { connect: { id: uID } }
+//         }
+//       },
+//       '{ id title text owner { id name } }'
+//     );
+//   } catch (error) {
+//     console.log(`ceate twitter error: ${error}`);
+//   }
+// };
 
-createTweetforUser('ck6xcmy580ab70891z7o8iwq9').then(data => {
-  console.log(
-    `a specific user with new twitter list: ${JSON.stringify(
-      data,
-      undefined,
-      2
-    )}`
-  );
-});
+// const userWithTweetsList = async (uID: string | number) => {
+//   try {
+//     return prisma.query.user(
+//       { where: { id: uID } },
+//       '{ id email name tweets { title, text, published, createdAt } } '
+//     );
+//   } catch (error) {
+//     console.log(`query error: ${error}`);
+//   }
+// };
+
+// createTweetforUser('ck6xcmy580ab70891z7o8iwq9').then(data => {
+//   console.log(
+//     `a specific user with new twitter list: ${JSON.stringify(
+//       data,
+//       undefined,
+//       2
+//     )}`
+//   );
+// });
+
+// =============== scope 1 =================
 
 // Retrieve `name` of a specific user
 // prisma.query

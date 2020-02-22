@@ -289,6 +289,7 @@ type Subscription {
 type Tweet {
   id: ID!
   createdAt: DateTime!
+  updatedAt: DateTime!
   title: String!
   text: String!
   published: Boolean!
@@ -351,6 +352,8 @@ enum TweetOrderByInput {
   id_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
   title_ASC
   title_DESC
   text_ASC
@@ -364,6 +367,7 @@ enum TweetOrderByInput {
 type TweetPreviousValues {
   id: ID!
   createdAt: DateTime!
+  updatedAt: DateTime!
   title: String!
   text: String!
   published: Boolean!
@@ -393,6 +397,14 @@ input TweetScalarWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   title: String
   title_not: String
   title_in: [String!]
@@ -562,6 +574,14 @@ input TweetWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   title: String
   title_not: String
   title_in: [String!]
