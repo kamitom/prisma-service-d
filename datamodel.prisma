@@ -17,6 +17,7 @@ type Tweet {
   published: Boolean!
   owner: User! @relation(link: INLINE)
   comments: [Comment!]
+  location: String
 }
 
 type Comment {

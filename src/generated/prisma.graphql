@@ -1,5 +1,5 @@
 # source: http://localhost:4468
-# timestamp: Sat Feb 22 2020 15:57:54 GMT+0800 (GMT+08:00)
+# timestamp: Sat Feb 22 2020 16:36:49 GMT+0800 (GMT+08:00)
 
 type AggregateComment {
   count: Int!
@@ -490,6 +490,7 @@ type Tweet implements Node {
   published: Boolean!
   owner: User!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  location: String
 }
 
 """A connection to a list of items."""
@@ -507,6 +508,7 @@ input TweetCreateInput {
   title: String!
   text: String!
   published: Boolean!
+  location: String
   owner: UserCreateOneWithoutTweetsInput!
   comments: CommentCreateManyWithoutTweetInput
 }
@@ -526,6 +528,7 @@ input TweetCreateWithoutCommentsInput {
   title: String!
   text: String!
   published: Boolean!
+  location: String
   owner: UserCreateOneWithoutTweetsInput!
 }
 
@@ -534,6 +537,7 @@ input TweetCreateWithoutOwnerInput {
   title: String!
   text: String!
   published: Boolean!
+  location: String
   comments: CommentCreateManyWithoutTweetInput
 }
 
@@ -557,6 +561,8 @@ enum TweetOrderByInput {
   text_DESC
   published_ASC
   published_DESC
+  location_ASC
+  location_DESC
 }
 
 type TweetPreviousValues {
@@ -565,6 +571,7 @@ type TweetPreviousValues {
   title: String!
   text: String!
   published: Boolean!
+  location: String
 }
 
 input TweetScalarWhereInput {
@@ -722,6 +729,46 @@ input TweetScalarWhereInput {
 
   """All values that are not equal to given value."""
   published_not: Boolean
+  location: String
+
+  """All values that are not equal to given value."""
+  location_not: String
+
+  """All values that are contained in given list."""
+  location_in: [String!]
+
+  """All values that are not contained in given list."""
+  location_not_in: [String!]
+
+  """All values less than the given value."""
+  location_lt: String
+
+  """All values less than or equal the given value."""
+  location_lte: String
+
+  """All values greater than the given value."""
+  location_gt: String
+
+  """All values greater than or equal the given value."""
+  location_gte: String
+
+  """All values containing the given string."""
+  location_contains: String
+
+  """All values not containing the given string."""
+  location_not_contains: String
+
+  """All values starting with the given string."""
+  location_starts_with: String
+
+  """All values not starting with the given string."""
+  location_not_starts_with: String
+
+  """All values ending with the given string."""
+  location_ends_with: String
+
+  """All values not ending with the given string."""
+  location_not_ends_with: String
 }
 
 type TweetSubscriptionPayload {
@@ -765,6 +812,7 @@ input TweetUpdateInput {
   title: String
   text: String
   published: Boolean
+  location: String
   owner: UserUpdateOneRequiredWithoutTweetsInput
   comments: CommentUpdateManyWithoutTweetInput
 }
@@ -773,12 +821,14 @@ input TweetUpdateManyDataInput {
   title: String
   text: String
   published: Boolean
+  location: String
 }
 
 input TweetUpdateManyMutationInput {
   title: String
   text: String
   published: Boolean
+  location: String
 }
 
 input TweetUpdateManyWithoutOwnerInput {
@@ -809,6 +859,7 @@ input TweetUpdateWithoutCommentsDataInput {
   title: String
   text: String
   published: Boolean
+  location: String
   owner: UserUpdateOneRequiredWithoutTweetsInput
 }
 
@@ -816,6 +867,7 @@ input TweetUpdateWithoutOwnerDataInput {
   title: String
   text: String
   published: Boolean
+  location: String
   comments: CommentUpdateManyWithoutTweetInput
 }
 
@@ -990,6 +1042,46 @@ input TweetWhereInput {
 
   """All values that are not equal to given value."""
   published_not: Boolean
+  location: String
+
+  """All values that are not equal to given value."""
+  location_not: String
+
+  """All values that are contained in given list."""
+  location_in: [String!]
+
+  """All values that are not contained in given list."""
+  location_not_in: [String!]
+
+  """All values less than the given value."""
+  location_lt: String
+
+  """All values less than or equal the given value."""
+  location_lte: String
+
+  """All values greater than the given value."""
+  location_gt: String
+
+  """All values greater than or equal the given value."""
+  location_gte: String
+
+  """All values containing the given string."""
+  location_contains: String
+
+  """All values not containing the given string."""
+  location_not_contains: String
+
+  """All values starting with the given string."""
+  location_starts_with: String
+
+  """All values not starting with the given string."""
+  location_not_starts_with: String
+
+  """All values ending with the given string."""
+  location_ends_with: String
+
+  """All values not ending with the given string."""
+  location_not_ends_with: String
   owner: UserWhereInput
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput

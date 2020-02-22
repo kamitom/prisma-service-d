@@ -294,6 +294,7 @@ type Tweet {
   published: Boolean!
   owner: User!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  location: String
 }
 
 type TweetConnection {
@@ -309,6 +310,7 @@ input TweetCreateInput {
   published: Boolean!
   owner: UserCreateOneWithoutTweetsInput!
   comments: CommentCreateManyWithoutTweetInput
+  location: String
 }
 
 input TweetCreateManyWithoutOwnerInput {
@@ -327,6 +329,7 @@ input TweetCreateWithoutCommentsInput {
   text: String!
   published: Boolean!
   owner: UserCreateOneWithoutTweetsInput!
+  location: String
 }
 
 input TweetCreateWithoutOwnerInput {
@@ -335,6 +338,7 @@ input TweetCreateWithoutOwnerInput {
   text: String!
   published: Boolean!
   comments: CommentCreateManyWithoutTweetInput
+  location: String
 }
 
 type TweetEdge {
@@ -353,6 +357,8 @@ enum TweetOrderByInput {
   text_DESC
   published_ASC
   published_DESC
+  location_ASC
+  location_DESC
 }
 
 type TweetPreviousValues {
@@ -361,6 +367,7 @@ type TweetPreviousValues {
   title: String!
   text: String!
   published: Boolean!
+  location: String
 }
 
 input TweetScalarWhereInput {
@@ -416,6 +423,20 @@ input TweetScalarWhereInput {
   text_not_ends_with: String
   published: Boolean
   published_not: Boolean
+  location: String
+  location_not: String
+  location_in: [String!]
+  location_not_in: [String!]
+  location_lt: String
+  location_lte: String
+  location_gt: String
+  location_gte: String
+  location_contains: String
+  location_not_contains: String
+  location_starts_with: String
+  location_not_starts_with: String
+  location_ends_with: String
+  location_not_ends_with: String
   AND: [TweetScalarWhereInput!]
   OR: [TweetScalarWhereInput!]
   NOT: [TweetScalarWhereInput!]
@@ -445,18 +466,21 @@ input TweetUpdateInput {
   published: Boolean
   owner: UserUpdateOneRequiredWithoutTweetsInput
   comments: CommentUpdateManyWithoutTweetInput
+  location: String
 }
 
 input TweetUpdateManyDataInput {
   title: String
   text: String
   published: Boolean
+  location: String
 }
 
 input TweetUpdateManyMutationInput {
   title: String
   text: String
   published: Boolean
+  location: String
 }
 
 input TweetUpdateManyWithoutOwnerInput {
@@ -488,6 +512,7 @@ input TweetUpdateWithoutCommentsDataInput {
   text: String
   published: Boolean
   owner: UserUpdateOneRequiredWithoutTweetsInput
+  location: String
 }
 
 input TweetUpdateWithoutOwnerDataInput {
@@ -495,6 +520,7 @@ input TweetUpdateWithoutOwnerDataInput {
   text: String
   published: Boolean
   comments: CommentUpdateManyWithoutTweetInput
+  location: String
 }
 
 input TweetUpdateWithWhereUniqueWithoutOwnerInput {
@@ -570,6 +596,20 @@ input TweetWhereInput {
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput
   comments_none: CommentWhereInput
+  location: String
+  location_not: String
+  location_in: [String!]
+  location_not_in: [String!]
+  location_lt: String
+  location_lte: String
+  location_gt: String
+  location_gte: String
+  location_contains: String
+  location_not_contains: String
+  location_starts_with: String
+  location_not_starts_with: String
+  location_ends_with: String
+  location_not_ends_with: String
   AND: [TweetWhereInput!]
   OR: [TweetWhereInput!]
   NOT: [TweetWhereInput!]

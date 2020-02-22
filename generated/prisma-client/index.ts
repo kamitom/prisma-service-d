@@ -189,7 +189,9 @@ export type TweetOrderByInput =
   | "text_ASC"
   | "text_DESC"
   | "published_ASC"
-  | "published_DESC";
+  | "published_DESC"
+  | "location_ASC"
+  | "location_DESC";
 
 export type CommentOrderByInput =
   | "id_ASC"
@@ -278,6 +280,20 @@ export interface TweetWhereInput {
   comments_every?: Maybe<CommentWhereInput>;
   comments_some?: Maybe<CommentWhereInput>;
   comments_none?: Maybe<CommentWhereInput>;
+  location?: Maybe<String>;
+  location_not?: Maybe<String>;
+  location_in?: Maybe<String[] | String>;
+  location_not_in?: Maybe<String[] | String>;
+  location_lt?: Maybe<String>;
+  location_lte?: Maybe<String>;
+  location_gt?: Maybe<String>;
+  location_gte?: Maybe<String>;
+  location_contains?: Maybe<String>;
+  location_not_contains?: Maybe<String>;
+  location_starts_with?: Maybe<String>;
+  location_not_starts_with?: Maybe<String>;
+  location_ends_with?: Maybe<String>;
+  location_not_ends_with?: Maybe<String>;
   AND?: Maybe<TweetWhereInput[] | TweetWhereInput>;
   OR?: Maybe<TweetWhereInput[] | TweetWhereInput>;
   NOT?: Maybe<TweetWhereInput[] | TweetWhereInput>;
@@ -457,6 +473,7 @@ export interface TweetCreateWithoutOwnerInput {
   text: String;
   published: Boolean;
   comments?: Maybe<CommentCreateManyWithoutTweetInput>;
+  location?: Maybe<String>;
 }
 
 export interface CommentCreateManyWithoutTweetInput {
@@ -483,6 +500,7 @@ export interface TweetCreateWithoutCommentsInput {
   text: String;
   published: Boolean;
   owner: UserCreateOneWithoutTweetsInput;
+  location?: Maybe<String>;
 }
 
 export interface UserCreateOneWithoutTweetsInput {
@@ -549,6 +567,7 @@ export interface TweetUpdateWithoutOwnerDataInput {
   text?: Maybe<String>;
   published?: Maybe<Boolean>;
   comments?: Maybe<CommentUpdateManyWithoutTweetInput>;
+  location?: Maybe<String>;
 }
 
 export interface CommentUpdateManyWithoutTweetInput {
@@ -700,6 +719,20 @@ export interface TweetScalarWhereInput {
   text_not_ends_with?: Maybe<String>;
   published?: Maybe<Boolean>;
   published_not?: Maybe<Boolean>;
+  location?: Maybe<String>;
+  location_not?: Maybe<String>;
+  location_in?: Maybe<String[] | String>;
+  location_not_in?: Maybe<String[] | String>;
+  location_lt?: Maybe<String>;
+  location_lte?: Maybe<String>;
+  location_gt?: Maybe<String>;
+  location_gte?: Maybe<String>;
+  location_contains?: Maybe<String>;
+  location_not_contains?: Maybe<String>;
+  location_starts_with?: Maybe<String>;
+  location_not_starts_with?: Maybe<String>;
+  location_ends_with?: Maybe<String>;
+  location_not_ends_with?: Maybe<String>;
   AND?: Maybe<TweetScalarWhereInput[] | TweetScalarWhereInput>;
   OR?: Maybe<TweetScalarWhereInput[] | TweetScalarWhereInput>;
   NOT?: Maybe<TweetScalarWhereInput[] | TweetScalarWhereInput>;
@@ -714,6 +747,7 @@ export interface TweetUpdateManyDataInput {
   title?: Maybe<String>;
   text?: Maybe<String>;
   published?: Maybe<Boolean>;
+  location?: Maybe<String>;
 }
 
 export interface UserUpsertNestedInput {
@@ -733,6 +767,7 @@ export interface TweetUpdateWithoutCommentsDataInput {
   text?: Maybe<String>;
   published?: Maybe<Boolean>;
   owner?: Maybe<UserUpdateOneRequiredWithoutTweetsInput>;
+  location?: Maybe<String>;
 }
 
 export interface UserUpdateOneRequiredWithoutTweetsInput {
@@ -770,6 +805,7 @@ export interface TweetCreateInput {
   published: Boolean;
   owner: UserCreateOneWithoutTweetsInput;
   comments?: Maybe<CommentCreateManyWithoutTweetInput>;
+  location?: Maybe<String>;
 }
 
 export interface TweetUpdateInput {
@@ -778,12 +814,14 @@ export interface TweetUpdateInput {
   published?: Maybe<Boolean>;
   owner?: Maybe<UserUpdateOneRequiredWithoutTweetsInput>;
   comments?: Maybe<CommentUpdateManyWithoutTweetInput>;
+  location?: Maybe<String>;
 }
 
 export interface TweetUpdateManyMutationInput {
   title?: Maybe<String>;
   text?: Maybe<String>;
   published?: Maybe<Boolean>;
+  location?: Maybe<String>;
 }
 
 export interface UserUpdateInput {
@@ -949,6 +987,7 @@ export interface Tweet {
   title: String;
   text: String;
   published: Boolean;
+  location?: String;
 }
 
 export interface TweetPromise extends Promise<Tweet>, Fragmentable {
@@ -967,6 +1006,7 @@ export interface TweetPromise extends Promise<Tweet>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  location: () => Promise<String>;
 }
 
 export interface TweetSubscription
@@ -987,6 +1027,7 @@ export interface TweetSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  location: () => Promise<AsyncIterator<String>>;
 }
 
 export interface TweetNullablePromise
@@ -1007,6 +1048,7 @@ export interface TweetNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
+  location: () => Promise<String>;
 }
 
 export interface CommentConnection {
@@ -1288,6 +1330,7 @@ export interface TweetPreviousValues {
   title: String;
   text: String;
   published: Boolean;
+  location?: String;
 }
 
 export interface TweetPreviousValuesPromise
@@ -1298,6 +1341,7 @@ export interface TweetPreviousValuesPromise
   title: () => Promise<String>;
   text: () => Promise<String>;
   published: () => Promise<Boolean>;
+  location: () => Promise<String>;
 }
 
 export interface TweetPreviousValuesSubscription
@@ -1308,6 +1352,7 @@ export interface TweetPreviousValuesSubscription
   title: () => Promise<AsyncIterator<String>>;
   text: () => Promise<AsyncIterator<String>>;
   published: () => Promise<AsyncIterator<Boolean>>;
+  location: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserSubscriptionPayload {
